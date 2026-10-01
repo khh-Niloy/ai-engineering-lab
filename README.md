@@ -1,6 +1,4 @@
-# ai-engineering-lab
-
-A collection of small-to-medium AI engineering projects built while learning practical AI/LLM engineering.
+A collection of small to medium AI engineering projects built while learning practical AI/LLM engineering.
 
 ## Projects
 
@@ -15,16 +13,18 @@ A collection of small-to-medium AI engineering projects built while learning pra
 **What it does**  
 A Node.js command-line tool that uses the Gemini API to automatically categorize and prioritize customer support tickets, providing a structured JSON response.
 
-**Key concepts/technologies**  
-* TypeScript / Node.js
-* `@google/genai` SDK
-* Structured JSON Output (JSON Schema)
-* System Instructions / Prompt Engineering
+**Key concepts/technologies**
+
+- TypeScript / Node.js
+- `@google/genai` SDK
+- Structured JSON Output (JSON Schema)
+- System Instructions / Prompt Engineering
 
 **Examples**
 
 **Input:** `I was charged twice for the same order.`
 **Output:**
+
 ```json
 {
   "category": "PAYMENT",
@@ -35,6 +35,7 @@ A Node.js command-line tool that uses the Gemini API to automatically categorize
 
 **Input:** `I forgot my password and cannot log into my account.`
 **Output:**
+
 ```json
 {
   "category": "ACCOUNT",
@@ -45,6 +46,7 @@ A Node.js command-line tool that uses the Gemini API to automatically categorize
 
 **Input:** `The app crashes every time I try to upload a profile picture.`
 **Output:**
+
 ```json
 {
   "category": "TECHNICAL",
@@ -55,6 +57,7 @@ A Node.js command-line tool that uses the Gemini API to automatically categorize
 
 **Input:** `My order was supposed to arrive yesterday, but I still haven't received it.`
 **Output:**
+
 ```json
 {
   "category": "SHIPPING",
@@ -65,6 +68,7 @@ A Node.js command-line tool that uses the Gemini API to automatically categorize
 
 **Input:** `I returned the product 7 days ago, but I haven't received my refund yet.`
 **Output:**
+
 ```json
 {
   "category": "REFUND",
@@ -72,4 +76,5 @@ A Node.js command-line tool that uses the Gemini API to automatically categorize
   "reason": "Customer has not received a refund 7 days after returning the product."
 }
 ```
+
 </details>
