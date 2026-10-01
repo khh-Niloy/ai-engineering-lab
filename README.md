@@ -19,6 +19,8 @@ A Node.js command-line tool that uses the Gemini API to automatically categorize
 - `@google/genai` SDK
 - Structured JSON Output (JSON Schema)
 - System Instructions / Prompt Engineering
+- **Resilience & Reliability:** Retries with Exponential Backoff, Request Timeouts, Model Fallback
+- **Runtime Validation:** Zod Schema validation for reliable output parsing
 
 **Examples**
 

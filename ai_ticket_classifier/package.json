@@ -7,6 +7,7 @@
     "start": "tsx --env-file=.env index.ts"
   },
   "dependencies": {
-    "@google/genai": "^2.25.0"
+    "@google/genai": "^2.25.0",
+    "zod": "^4.6.5"
   }
 }
