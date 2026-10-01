@@ -1,0 +1,12 @@
+{
+  "devDependencies": {
+    "@types/node": "^26.6.3",
+    "tsx": "^4.23.15"
+  },
+  "scripts": {
+    "start": "tsx --env-file=.env index.ts"
+  },
+  "dependencies": {
+    "@google/genai": "^2.25.0"
+  }
+}
