@@ -2,7 +2,7 @@ A collection of small to medium AI engineering projects built while learning pra
 
 ## Projects
 
-### AI Ticket Classifier
+# AI Ticket Classifier
 
 ![AI Ticket Classifier Demo](./images/ai_ticket_classifier.png)
 
@@ -78,5 +78,30 @@ A Node.js command-line tool that uses the Gemini API to automatically categorize
   "reason": "Customer has not received a refund 7 days after returning the product."
 }
 ```
+
+</details>
+
+# AI Customer Support Assistant
+
+<details>
+<summary><b>Project Details</b></summary>
+<br>
+
+**What it does**  
+A full-stack web application that provides AI-driven customer support. It integrates a NestJS backend with a Next.js frontend, using the Gemini API to assist customers with queries about their orders, products, and general support issues based on conversation history and structured data.
+
+🌟 **Highlight: Intelligent Context Management**  
+Instead of naively passing the entire chat history to the LLM—which rapidly consumes token limits—this project implements a **rolling AI summary pattern**.
+
+- Uses Gemini's structured output to dynamically generate and update a running summary of the conversation.
+- Persists the summary in PostgreSQL and injects it into the context of subsequent prompts.
+- **Result:** Drastically reduced token usage, virtually infinite conversational memory, and preserved core context without history bloat!
+
+**Key concepts/technologies**
+
+- **Frontend:** Next.js, React, Tailwind CSS
+- **Backend:** NestJS, TypeScript, Prisma ORM, PostgreSQL
+- **AI Integration:** `@google/genai` SDK
+- **Database Schema:** Real-world modeling of Customers, Orders, Products, and Conversations
 
 </details>
