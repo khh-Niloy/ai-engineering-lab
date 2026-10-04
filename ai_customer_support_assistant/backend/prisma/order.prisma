@@ -1,0 +1,8 @@
+model Order {
+  order_id    Int         @id @default(autoincrement())
+  customer_id Int
+  customer    Customer    @relation(fields: [customer_id], references: [customer_id])
+  status      String
+  orderItems  OrderItem[]
+  refunds     Refund[]
+}

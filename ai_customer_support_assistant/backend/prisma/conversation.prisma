@@ -1,0 +1,7 @@
+model Conversation {
+  conversation_id String    @id @default(uuid())
+  customer_id     Int
+  summary         String?
+  customer        Customer  @relation(fields: [customer_id], references: [customer_id])
+  messages        Message[]
+}

@@ -1,0 +1,34 @@
+--- customer
+customer_id
+name
+email
+phone number
+
+--- order
+order_id
+customer_id
+status
+orderItems[]
+
+--- order_item
+order_id
+product_id
+quantity
+price
+
+--- conversation
+conversation_id
+customer_id
+summary
+
+--- messages
+message_id
+conversation_id
+role
+content
+timestamp
+
+--- product
+product_id
+name
+price
