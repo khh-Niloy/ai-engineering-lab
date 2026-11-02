@@ -115,3 +115,14 @@ rl.question("write a issue here: ", async (issue: string) => {
   console.log(data);
   rl.close();
 });
+
+//
+// parts: [
+//   { text: "Describe this image" },
+//   {
+//     inlineData: {
+//       mimeType: "image/jpeg",
+//       data: imageBase64
+//     }
+//   }
+// ]
