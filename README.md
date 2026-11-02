@@ -2,6 +2,26 @@ A collection of small to medium AI engineering projects built while learning pra
 
 ## Projects
 
+# DocHook Rag
+
+<p>
+  <a href="https://b5a7-portfolio.vercel.app/?project=6add99ebd681fa3d0b844f2d">
+    <img src="https://res.cloudinary.com/dwrvergmd/image/upload/v1792911928/q9qbj5pxm18-1792911925374-screenshot-2026-10-25-at-12-39-24pm-png.png.png" alt="DocHook Rag" width="600" />
+  </a>
+</p>
+
+[🔗 **View Project Details & Live Demo →**](https://b5a7-portfolio.vercel.app/?project=6add99ebd681fa3d0b844f2d)
+
+# ReleaseOps Tool Calling
+
+<p>
+  <a href="https://b5a7-portfolio.vercel.app/?project=6add99ebd681fa3d0b844f2e">
+    <img src="https://res.cloudinary.com/dwrvergmd/image/upload/v1792912040/dse8lndup7-1792912037394-screenshot-2026-10-25-at-1-06-32pm-png.png.png" alt="ReleaseOps Tool Calling" width="500" />
+  </a>
+</p>
+
+[🔗 **View Project Details & Live Demo →**](https://b5a7-portfolio.vercel.app/?project=6add99ebd681fa3d0b844f2e)
+
 # AI Ticket Classifier
 
 ![AI Ticket Classifier Demo](./images/ai_ticket_classifier.png)
