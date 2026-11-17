@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useState } from 'react';
-import { DocumentItem } from '../lib/types';
+import { DocumentItem, UploadResponse } from '../lib/types';
 import {
   FileText,
   UploadCloud,
@@ -18,7 +18,7 @@ interface DocumentSidebarProps {
   documents: DocumentItem[];
   selectedDocumentId: string | null;
   onSelectDocument: (docId: string) => void;
-  onUploadFile: (file: File) => Promise<void>;
+  onUploadFile: (file: File) => Promise<UploadResponse | void>;
   isUploading: boolean;
   isLoading?: boolean;
 }
@@ -64,14 +64,13 @@ export const DocumentSidebar: React.FC<DocumentSidebarProps> = ({
   const getFileIcon = (filename: string) => {
     const ext = filename.split('.').pop()?.toLowerCase();
     if (ext === 'pdf') return <FileText className="w-4 h-4 text-rose-500" />;
-    if (ext === 'docx')
-      return <FileSpreadsheet className="w-4 h-4 text-blue-600" />;
+    if (ext === 'docx') return <FileSpreadsheet className="w-4 h-4 text-blue-600" />;
     return <FileCode className="w-4 h-4 text-emerald-600" />;
   };
 
   return (
     <div className="flex flex-col h-full w-full min-w-0 max-w-full bg-[#f9f9f9] border-l border-[#e5e7eb] font-sans overflow-hidden">
-      {/* Header (ChatGPT style) */}
+      {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-[#e5e7eb]">
         <div className="flex items-center gap-2">
           <h2 className="text-xs font-semibold tracking-tight text-[#0d0d0d]">
@@ -85,9 +84,10 @@ export const DocumentSidebar: React.FC<DocumentSidebarProps> = ({
         <input
           ref={fileInputRef}
           type="file"
-          accept=".pdf,.docx,.txt"
+          accept=".pdf,.docx,.txt,.csv,.md,.json"
           onChange={handleFileChange}
           className="hidden"
+          disabled={isUploading}
         />
       </div>
 
@@ -98,21 +98,27 @@ export const DocumentSidebar: React.FC<DocumentSidebarProps> = ({
           onDragLeave={handleDrag}
           onDragOver={handleDrag}
           onDrop={handleDrop}
-          onClick={() => fileInputRef.current?.click()}
+          onClick={() => {
+            if (!isUploading) {
+              fileInputRef.current?.click();
+            }
+          }}
           className={`border border-dashed rounded-xl p-3 text-center cursor-pointer transition-all duration-150 ${
             dragActive
               ? 'border-[#0d0d0d] bg-neutral-100 ring-2 ring-black/5'
               : 'border-[#d4d4d4] hover:border-[#a3a3a3] bg-white hover:bg-[#fbfbfb] shadow-2xs'
-          }`}
+          } ${isUploading ? 'opacity-70 cursor-not-allowed' : ''}`}
         >
-          <UploadCloud className="w-5 h-5 mx-auto text-[#737373] mb-1" />
+          {isUploading ? (
+            <Loader2 className="w-5 h-5 mx-auto text-blue-600 animate-spin mb-1" />
+          ) : (
+            <UploadCloud className="w-5 h-5 mx-auto text-[#737373] mb-1" />
+          )}
           <p className="text-xs font-medium text-[#171717]">
-            {isUploading
-              ? 'Uploading & Queuing...'
-              : 'Drop PDF, DOCX or TXT here'}
+            {isUploading ? 'Uploading & Queuing...' : 'Drop PDF, DOCX or TXT here'}
           </p>
           <p className="text-[10px] text-[#737373] mt-0.5">
-            Auto-indexed with LangChain embeddings
+            Auto-indexed via Supabase & LangChain
           </p>
         </div>
       </div>

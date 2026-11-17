@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { DocumentModule } from './document/document.module';
 import { DatabaseModule } from './database/database.module';
 import { ChatModule } from './chat/chat.module';
+import { GithubModule } from './github/github.module';
 import databaseConfig from './config/database.config';
 import supabaseConfig from './config/supabase.config';
 
@@ -17,6 +18,7 @@ import supabaseConfig from './config/supabase.config';
     DocumentModule,
     DatabaseModule,
     ChatModule,
+    GithubModule,
   ],
   controllers: [AppController],
   providers: [AppService],

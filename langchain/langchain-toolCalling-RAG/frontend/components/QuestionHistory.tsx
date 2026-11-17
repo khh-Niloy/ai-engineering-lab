@@ -32,14 +32,14 @@ export const QuestionHistory: React.FC<QuestionHistoryProps> = ({
   isLoading = false,
 }) => {
   return (
-    <div className="flex flex-col h-full bg-[#f9f9f9] border-r border-[#e5e7eb] font-sans">
-      {/* Header with App Logo and Brand Title (ChatGPT style, no delete allowed) */}
+    <div className="flex flex-col h-full w-full bg-[#f9f9f9] border-r border-[#e5e7eb] font-sans">
+      {/* Header with App Logo and Brand Title */}
       <div className="p-3 border-b border-[#e5e7eb] flex items-center justify-between">
         <div className="flex items-center gap-2.5">
           <div className="w-7 h-7 relative rounded-lg bg-white shadow-2xs border border-[#e5e7eb] flex items-center justify-center p-1">
             <Image
               src="/logo.png"
-              alt="DocHook Logo"
+              alt="DevMind Logo"
               width={22}
               height={22}
               className="object-contain"
@@ -62,7 +62,7 @@ export const QuestionHistory: React.FC<QuestionHistoryProps> = ({
         </div>
       </div>
 
-      {/* History Items List (Persistent conversation log) */}
+      {/* History Items List */}
       <div className="flex-1 overflow-y-auto p-2 space-y-1.5">
         {isLoading ? (
           <div className="space-y-2 p-1">
@@ -96,8 +96,7 @@ export const QuestionHistory: React.FC<QuestionHistoryProps> = ({
               No questions yet
             </p>
             <p className="text-[11px] text-[#737373] mt-1 max-w-[190px]">
-              Click on an uploaded document and ask a question to see history
-              here.
+              Click on an uploaded document and ask a question to see history here.
             </p>
           </div>
         ) : (

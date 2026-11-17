@@ -40,8 +40,8 @@ async function bootstrap() {
     new TransformInterceptor(),
   );
 
-  const port = process.env.PORT ?? 3000;
-  await app.listen(port);
-  logger.log(`Application is running on: http://localhost:${port}`);
+  const port = process.env.PORT ?? 5000;
+  await app.listen(port, '0.0.0.0');
+  logger.log(`Application is running on: http://0.0.0.0:${port}`);
 }
 void bootstrap();

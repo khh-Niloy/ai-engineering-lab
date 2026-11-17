@@ -6,7 +6,6 @@ import { DocumentItem, QAItem } from '../lib/types';
 import {
   ArrowUp,
   Sparkles,
-  User,
   Layers,
   ChevronDown,
   ChevronUp,
@@ -30,6 +29,7 @@ interface ChatSectionProps {
   isLoading: boolean;
   isInitialLoading?: boolean;
 }
+
 export const ChatSection: React.FC<ChatSectionProps> = ({
   selectedDocument,
   currentQA,
@@ -41,9 +41,7 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
 }) => {
   const [inputQuestion, setInputQuestion] = useState('');
   const [pendingQuestion, setPendingQuestion] = useState<string | null>(null);
-  const [expandedSourcesId, setExpandedSourcesId] = useState<string | null>(
-    null,
-  );
+  const [expandedSourcesId, setExpandedSourcesId] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [thinkingStepIndex, setThinkingStepIndex] = useState(0);
   const [thinkingElapsed, setThinkingElapsed] = useState(0);
@@ -157,35 +155,10 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
       return [];
     }
 
-    const lowerName = (selectedDocument.filename || '').toLowerCase();
-    const docId = selectedDocument.id || selectedDocument._id;
-
-    if (
-      lowerName.includes('northwind') ||
-      lowerName.includes('hr_policy') ||
-      docId === '6adc75fb8761978d24f828a2'
-    ) {
-      return [
-        'How many days of annual leave do employees get?',
-        'What does the company health insurance cover?',
-        'How quickly must a security incident be reported?',
-      ];
-    }
-
-    if (
-      lowerName.includes('notely') ||
-      lowerName.includes('user_manual') ||
-      docId === '6adc762e8761978d24f828bc'
-    ) {
-      return [
-        'What does the Pro plan include and how much does it cost?',
-        'What happens if I edit the same note on two devices while offline?',
-        'How long are deleted notes kept in the trash?',
-      ];
-    }
+    const docName = selectedDocument.filename || 'this document';
 
     return [
-      `What is the main topic of ${selectedDocument.filename}?`,
+      `What is the main topic of ${docName}?`,
       'Summarize the key points and findings in bullet format.',
       'What policies, terms, or actions are specified in this document?',
     ];
@@ -203,11 +176,11 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
 
   return (
     <div className="flex flex-col h-full bg-white relative font-sans">
-      {/* Top Banner: Selected Document Indicator (ChatGPT style clean header) */}
+      {/* Top Banner: Selected Document Indicator */}
       <div className="px-5 py-3 border-b border-[#e5e7eb] bg-white flex items-center justify-between shrink-0 z-10">
         <div className="flex items-center gap-3">
           <span className="text-[11px] font-semibold uppercase tracking-wider text-[#737373]">
-            Uploaded doc
+            UPLOADED DOC
           </span>
           <div className="h-3.5 w-px bg-[#e5e7eb]" />
           <div className="flex items-center gap-2">
@@ -275,10 +248,10 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
         {/* 1. Welcome View (New Question mode) */}
         {showWelcomeView && (
           <div className="flex flex-col items-center justify-center min-h-[420px] text-center max-w-xl mx-auto py-12">
-            <div className="w-16 h-16 rounded-2xl bg-white border border-[#e5e7eb] shadow-sm flex items-center justify-center mb-5 p-2 transition-transform hover:scale-105 duration-200">
+            <div className="w-16 h-16 rounded-2xl bg-white border border-[#e5e7eb] shadow-xs flex items-center justify-center mb-5 p-2 transition-transform hover:scale-105 duration-200">
               <Image
                 src="/logo.png"
-                alt="DocHook"
+                alt="DevMind Logo"
                 width={48}
                 height={48}
                 className="object-contain"
@@ -316,7 +289,7 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
               starterQuestions.length > 0 && (
                 <div className="w-full space-y-2 text-left">
                   <p className="text-[11px] font-semibold uppercase tracking-wider text-[#8e8e8e] mb-2 px-1">
-                    Suggested questions
+                    SUGGESTED QUESTIONS
                   </p>
                   {starterQuestions.map((q, idx) => (
                     <button
@@ -348,70 +321,52 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
                     </span>
                     <span className="text-[10px] text-[#8e8e8e]">Just now</span>
                   </div>
-                  <p className="whitespace-pre-wrap font-normal text-[#0d0d0d]">
-                    {pendingQuestion}
-                  </p>
-                </div>
-                <div className="w-7 h-7 rounded-full bg-[#e5e5e5] text-[#525252] flex items-center justify-center shrink-0 text-xs">
-                  <User className="w-3.5 h-3.5" />
+                  <p className="font-medium">{pendingQuestion}</p>
                 </div>
               </div>
             )}
 
-            <div className="flex justify-start items-start gap-3 pr-12">
-              <div className="w-7 h-7 rounded-lg bg-white border border-[#e5e7eb] shadow-2xs flex items-center justify-center shrink-0 p-1">
+            {/* Stepped progress card */}
+            <div className="flex items-start gap-3 max-w-2xl pr-12">
+              <div className="w-8 h-8 rounded-full bg-white border border-[#e5e7eb] shadow-2xs flex items-center justify-center shrink-0 p-1">
                 <Image
                   src="/logo.png"
-                  alt="DocHook Logo"
+                  alt="DevMind"
                   width={20}
                   height={20}
-                  className="object-contain animate-pulse"
+                  className="object-contain"
                 />
               </div>
-              {/* Claude-style dynamic reasoning card */}
-              <div className="bg-[#f9f9f9] border border-[#e5e7eb] rounded-2xl rounded-tl-xs p-4 text-xs max-w-xl shadow-2xs space-y-3 flex-1">
-                {/* Header: Claude-style thinking badge with elapsed time */}
-                <div className="flex items-center justify-between gap-3 border-b border-[#e5e7eb]/80 pb-2.5">
+              <div className="bg-white border border-[#e5e7eb] rounded-2xl rounded-tl-xs p-4 shadow-2xs w-full text-xs">
+                <div className="flex items-center justify-between border-b border-[#e5e7eb] pb-2 mb-3">
                   <div className="flex items-center gap-2">
-                    <div className="relative flex items-center justify-center">
-                      <span className="w-2 h-2 rounded-full bg-neutral-900 animate-ping absolute opacity-40" />
-                      <span className="w-2 h-2 rounded-full bg-neutral-900" />
-                    </div>
-                    <span className="font-semibold text-[#0d0d0d] tracking-tight">
-                      {
-                        (thinkingSteps[thinkingStepIndex] || thinkingSteps[0])
-                          .label
-                      }
+                    <Loader2 className="w-3.5 h-3.5 text-blue-600 animate-spin" />
+                    <span className="font-semibold text-[#0d0d0d]">
+                      {thinkingSteps[thinkingStepIndex].label}
                     </span>
                   </div>
-                  <span className="text-[10px] font-mono font-medium text-[#737373] bg-white border border-[#e5e7eb] px-2 py-0.5 rounded-full shadow-2xs">
+                  <span className="font-mono text-[10px] text-[#8e8e8e]">
                     {thinkingElapsed}s
                   </span>
                 </div>
-
-                {/* Progressive dynamic status message */}
-                <div className="flex items-center gap-2 text-[#525252] text-xs transition-all duration-300">
-                  <Sparkles className="w-3.5 h-3.5 text-[#0d0d0d] animate-spin shrink-0 [animation-duration:3.5s]" />
-                  <span className="truncate">
-                    {
-                      (thinkingSteps[thinkingStepIndex] || thinkingSteps[0])
-                        .detail
-                    }
-                  </span>
-                </div>
-
-                {/* Claude-style animated thinking shimmer bars */}
-                <div className="space-y-1.5 pt-1">
-                  <div className="h-2 rounded-full bg-gradient-to-r from-neutral-200 via-neutral-100 to-neutral-200 animate-pulse w-5/6" />
-                  <div className="h-2 rounded-full bg-gradient-to-r from-neutral-200 via-neutral-100 to-neutral-200 animate-pulse w-3/5 [animation-delay:200ms]" />
+                <p className="text-[11px] text-[#737373] mb-3">
+                  {thinkingSteps[thinkingStepIndex].detail}
+                </p>
+                <div className="w-full bg-[#f0f0f0] rounded-full h-1 overflow-hidden">
+                  <div
+                    className="bg-blue-600 h-1 rounded-full transition-all duration-300"
+                    style={{
+                      width: `${((thinkingStepIndex + 1) / thinkingSteps.length) * 100}%`,
+                    }}
+                  />
                 </div>
               </div>
             </div>
           </div>
         )}
 
-        {/* 3. Answered Q&A Card (Single Q&A view) */}
-        {showAnswerView && currentQA && (
+        {/* 3. Answer View */}
+        {showAnswerView && (
           <div className="space-y-4 max-w-3xl mx-auto">
             {/* User Question */}
             <div className="flex justify-end items-start gap-2.5 pl-12">
@@ -420,32 +375,25 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
                   <span className="text-[10px] font-semibold text-[#525252] uppercase tracking-wider">
                     Question
                   </span>
-                  <span className="text-[10px] text-[#8e8e8e]">
-                    {currentQA.createdAt || currentQA.timestamp
-                      ? new Date(
-                          currentQA.createdAt || currentQA.timestamp!,
-                        ).toLocaleTimeString([], {
-                          hour: '2-digit',
-                          minute: '2-digit',
-                        })
-                      : ''}
-                  </span>
+                  {currentQA.createdAt && (
+                    <span className="text-[10px] text-[#8e8e8e]">
+                      {new Date(currentQA.createdAt).toLocaleTimeString([], {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}
+                    </span>
+                  )}
                 </div>
-                <p className="whitespace-pre-wrap font-normal text-[#0d0d0d]">
-                  {currentQA.question}
-                </p>
-              </div>
-              <div className="w-7 h-7 rounded-full bg-[#e5e5e5] text-[#525252] flex items-center justify-center shrink-0 text-xs">
-                <User className="w-3.5 h-3.5" />
+                <p className="font-medium">{currentQA.question}</p>
               </div>
             </div>
 
-            {/* Assistant Answer */}
-            <div className="flex justify-start items-start gap-3 pr-12">
-              <div className="w-7 h-7 rounded-lg bg-white border border-[#e5e7eb] shadow-2xs flex items-center justify-center shrink-0 p-1">
+            {/* AI Response */}
+            <div className="flex items-start gap-3 max-w-3xl pr-4">
+              <div className="w-8 h-8 rounded-full bg-white border border-[#e5e7eb] shadow-2xs flex items-center justify-center shrink-0 p-1">
                 <Image
                   src="/logo.png"
-                  alt="DocHook Logo"
+                  alt="DevMind"
                   width={20}
                   height={20}
                   className="object-contain"
@@ -542,8 +490,8 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
                               <span className="text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-1 py-0.2 rounded font-medium">
                                 Vector Score:{' '}
                                 {typeof chunk.score === 'number'
-                                  ? chunk.score.toFixed(3)
-                                  : 'N/A'}
+                                    ? chunk.score.toFixed(3)
+                                    : 'N/A'}
                               </span>
                             </div>
                             <p className="text-[#374151] leading-relaxed font-sans">
@@ -568,13 +516,13 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
         <div className="p-4 border-t border-[#e5e7eb] bg-white flex flex-col items-center justify-center">
           <button
             onClick={onNewQuestion}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0d0d0d] hover:bg-neutral-800 text-white text-xs font-semibold shadow-2xs hover:shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0d0d0d] hover:bg-neutral-800 text-white text-xs font-semibold shadow-2xs hover:shadow-xs transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
           >
             <Plus className="w-4 h-4 stroke-[2.5]" />
             <span>New Question</span>
           </button>
           <p className="text-[10px] text-center text-[#8e8e8e] mt-2">
-            Responses are grounded on vector chunks retrieved from the document.
+            Responses are grounded on vector chunks retrieved from MongoDB Atlas.
           </p>
         </div>
       ) : (
@@ -596,11 +544,11 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
                       ? 'ask question about this document...'
                       : 'Select a document to ask questions...'
                 }
-                className="flex-1 min-w-0 bg-transparent py-3.5 pl-2 pr-2 text-xs text-[#0d0d0d] placeholder-[#8e8e8e] focus:outline-none disabled:opacity-60 disabled:cursor-not-allowed"
+                className="flex-1 min-w-0 bg-transparent py-3.5 pl-2 pr-2 text-xs text-[#0d0d0d] placeholder-[#8e8e8e] focus:outline-hidden disabled:opacity-60 disabled:cursor-not-allowed"
               />
 
               <div className="flex items-center gap-2 shrink-0 py-1">
-                {/* Submit button */}
+                {/* Submit button - No Reranker */}
                 <button
                   type="submit"
                   disabled={
@@ -618,7 +566,7 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
             </div>
           </form>
           <p className="text-[10px] text-center text-[#8e8e8e] mt-2">
-            Responses are grounded on vector chunks retrieved from the document.
+            Responses are grounded on vector chunks retrieved from MongoDB Atlas.
           </p>
         </div>
       )}
