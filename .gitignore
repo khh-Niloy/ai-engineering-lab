@@ -22,3 +22,4 @@ yarn-error.log*
 
 # Generated
 **/src/generated/
+issue.md
